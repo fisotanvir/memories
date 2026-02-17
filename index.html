@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Someone Special ❤️</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&family=Hind+Siliguri:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glow: 0 0 20px rgba(255, 105, 180, 0.8);
+            --text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            cursor: default;
+        }
+
+        body {
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            background: var(--bg-gradient);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        /* --- Live Background Particles --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* --- Main Container --- */
+        .container {
+            width: 90%;
+            max-width: 550px;
+            padding: 40px;
+            border-radius: 25px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.37);
+            position: relative;
+            z-index: 10;
+            transition: all 0.8s ease;
+        }
+
+        .page {
+            display: none;
+            animation: slideFade 1s ease forwards;
+        }
+
+        .active { display: block; }
+
+        @keyframes slideFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Typography --- */
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: var(--glow);
+        }
+
+        .bengali-text {
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            animation: fadeIn 2s ease;
+        }
+
+        .romantic-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- Buttons --- */
+        .btn-group {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 50px;
+            background: #fff;
+            color: #ff6b81;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.4s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            box-shadow: var(--glow);
+            transform: scale(1.1);
+            background: #fff;
+            color: #ff4757;
+        }
+
+        #no-btn {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        /* --- Typing Animation --- */
+        .typing {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #fff;
+            margin: 0 auto;
+            animation: typing 3.5s steps(30, end), blink .75s step-end infinite;
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { from, to { border-color: transparent } 50% { border-color: white } }
+
+        /* --- Video CSS --- */
+        video {
+            width: 100%;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* --- Simulation Delete Screen --- */
+        #delete-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .shatter {
+            animation: shatterEffect 0.8s forwards;
+        }
+
+        @keyframes shatterEffect {
+            to { opacity: 0; transform: scale(1.5) rotate(5deg); filter: blur(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            h3 { font-size: 1.4rem; }
+            .bengali-text { font-size: 1rem; }
+            .container { padding: 25px; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container" id="main-box">
+        
+        <!-- Page 1 -->
+        <section id="page1" class="page active">
+            <h3 class="typing">Do You Love Me?</h3>
+            <div class="btn-group">
+                <button class="btn" onclick="nextPage(2)">YES</button>
+                <button class="btn" id="no-btn">NO</button>
+            </div>
+        </section>
+
+        <!-- Page 2 -->
+        <section id="page2" class="page">
+            <div class="bengali-text">
+                <p style="font-weight: 600; font-size: 1.4rem;">এটা শুধু একটা মজার জন্য ছিল।</p>
+                <p>আর হ্যাঁ...</p>
+                <p>অভিনন্দন, তুমি আমার হাসিটাকে নীরবতায় বদলে দিলে। আমার আর হারাবার কিছুই নেই।</p>
+                <p>আসলে প্রেমে পরলে ফেরার পথ থাকতো, কিন্তু আমি পরে গেছিলাম মায়ার যার কোনো ফেরার পথ নাই।</p>
+            </div>
+            <button class="btn" onclick="nextPage(3)">NEXT</button>
+        </section>
+
+        <!-- Page 3 -->
+        <section id="page3" class="page">
+            <div class="bengali-text">
+                <h2 class="romantic-title">Wait...</h2>
+                <p>এখনো অপেক্ষায় আছিস আরো কিছু বলবো ।</p>
+                <p>Do you know what my best memory is? <br> It’s..........</p>
+            </div>
+            <button class="btn" onclick="nextPage(4)">NEXT</button>
+        </section>
+
+        <!-- Page 4 -->
+        <section id="page4" class="page">
+            <h3>Memory Lane</h3>
+            <!-- Video path: video/memory.mp4 -->
+            <video id="myVideo" controls controlsList="nodownload" oncontextmenu="return false;">
+                <source src="video/memory.mp4" type="video/mp4">
+            </video>
+            <button class="btn" onclick="startDelete()">MY NEXT Memories</button>
+        </section>
+
+    </div>
+
+    <!-- Page 5: Delete Screen -->
+    <div id="delete-overlay">
+        <p id="delete-status" style="color: #ff4757; letter-spacing: 2px;"></p>
+        <div id="final-wrap" style="display: none; text-align: center;">
+            <h1 class="romantic-title">You successfully deleted my memories.</h1>
+            <p style="font-family: 'Poppins';">Thank you.</p>
+        </div>
+    </div>
+
+    <!-- Audio path: audio/bg-music.mp3 -->
+    <audio id="bg-music" loop>
+        <source src="audio/bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // --- 1. Security: Disable Right Click & Keys ---
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'i' || e.shiftKey)) {
+                e.preventDefault();
+            }
+        });
+
+        // --- 2. Live Particles Animation ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = initCanvas;
+        initCanvas();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 20;
+                this.size = Math.random() * 6 + 2;
+                this.speed = Math.random() * 1.5 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -10) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- 3. Runaway NO Button ---
+        const noBtn = document.getElementById('no-btn');
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
+
+        // --- 4. Page Transition ---
+        function nextPage(num) {
+            const activePage = document.querySelector('.page.active');
+            
+            // Start Music on first click
+            if(num === 2) {
+                document.getElementById('bg-music').play().catch(() => console.log("Audio play blocked"));
+            }
+
+            activePage.style.opacity = '0';
+            activePage.style.transform = 'translateX(-50px)';
+            
+            setTimeout(() => {
+                activePage.classList.remove('active');
+                const next = document.getElementById('page' + num);
+                next.classList.add('active');
+            }, 600);
+        }
+
+        // --- 5. Delete Simulation ---
+        function startDelete() {
+            const mainBox = document.getElementById('main-box');
+            const overlay = document.getElementById('delete-overlay');
+            const status = document.getElementById('delete-status');
+            const final = document.getElementById('final-wrap');
+
+            mainBox.classList.add('shatter');
+
+            setTimeout(() => {
+                mainBox.style.display = 'none';
+                overlay.style.display = 'flex';
+                
+                let messages = [
+                    "Accessing System...",
+                    "Deleting Memories...",
+                    "Removing Feelings...",
+                    "Wiping Heart.exe...",
+                    "Finalizing..."
+                ];
+                
+                let i = 0;
+                let timer = setInterval(() => {
+                    status.innerText = messages[i];
+                    i++;
+                    if(i >= messages.length) {
+                        clearInterval(timer);
+                        status.style.display = 'none';
+                        final.style.display = 'block';
+                        final.style.animation = 'slideFade 2s ease';
+                    }
+                }, 1000);
+            }, 800);
+        }
+    </script>
+</body>
+</html>
